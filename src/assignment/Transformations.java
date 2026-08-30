@@ -35,7 +35,7 @@ class Invert extends ImageEffect {
 }
 
 class NoRed extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -49,8 +49,8 @@ class NoRed extends ImageEffect {
     }
 }
 
-class noGreen extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+class NoGreen extends ImageEffect {
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -64,8 +64,8 @@ class noGreen extends ImageEffect {
     }
 }
 
-class noBlue extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+class NoBlue extends ImageEffect {
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -80,7 +80,7 @@ class noBlue extends ImageEffect {
 }
 
 class RedOnly extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -95,7 +95,7 @@ class RedOnly extends ImageEffect {
 }
 
 class GreenOnly extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -110,7 +110,7 @@ class GreenOnly extends ImageEffect {
 }
 
 class BlueOnly extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -125,7 +125,7 @@ class BlueOnly extends ImageEffect {
 }
 
 class BlackAndWhite extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -141,7 +141,7 @@ class BlackAndWhite extends ImageEffect {
 }
 
 class VerticalReflect extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -158,7 +158,7 @@ class VerticalReflect extends ImageEffect {
 }
 
 class HorizontalReflect extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -175,7 +175,7 @@ class HorizontalReflect extends ImageEffect {
 }
 
 class Grow extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int width = pixels[0].length;
         int height = pixels.length;
@@ -195,7 +195,7 @@ class Grow extends ImageEffect {
 }
 
 class Shrink extends ImageEffect {
-    public int[][] apply(int[][] pixels, 
+    public int[][] apply(int[][] pixels,
                          ArrayList<ImageEffectParam> params) {
         int shrunkWidth = pixels[0].length / 2;
         int shrunkHeight = pixels.length / 2;
@@ -228,7 +228,7 @@ class Shrink extends ImageEffect {
                 shrunkPixels[y][x] = makePixel(redAverage, greenAverage, blueAverage);
             }
         }
-       return shrunkPixels;
+         return shrunkPixels;
     }
 }
 
@@ -236,7 +236,7 @@ class Threshold extends ImageEffect {
     public Threshold() {
         params = new ArrayList<ImageEffectParam>();
         params.add(new ImageEffectParam("Threshold",
-                                       "Enter threshold value (0-255) inclusive.",
+                                       "Enter threshold value [0-255] inclusive.",
                                        127, 0, 255));
     }
 
