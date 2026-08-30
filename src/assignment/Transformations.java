@@ -232,6 +232,58 @@ class Shrink extends ImageEffect {
     }
 }
 
+class Threshold extends ImageEffect {
+    public Threshold() {
+        params = new ArrayList<ImageEffectParam>();
+        params.add(new ImageEffectParam("Threshold",
+                                       "Enter threshold value (0-255) inclusive.",
+                                       127, 0, 255));
+    }
+
+    public int[][] apply(int[][] pixels,
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        int thresholdValue = 127;
+        if (params != null && !params.isEmpty()) {
+            thresholdValue = params.get(0).getValue();
+        }
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int red = getRed(pixels[y][x]);
+                int green = getGreen(pixels[y][x]);
+                int blue = getBlue(pixels[y][x]);
+
+                int newRed;
+                if (red < thresholdValue) {
+                    newRed = 0;
+                } else {
+                    newRed = 255;
+                }
+
+                int newGreen;
+                if (green < thresholdValue) {
+                    newGreen = 0;
+                } else {
+                    newGreen = 255;
+                }
+
+                int newBlue;
+                if (blue < thresholdValue) {
+                    newBlue = 0;
+                } else {
+                    newBlue = 255;
+                }
+
+                pixels[y][x] = makePixel(newRed, newGreen, newBlue);
+            }
+        }
+        return pixels;
+    }
+}
+
 class Dummy extends ImageEffect {
 
     public Dummy() {
