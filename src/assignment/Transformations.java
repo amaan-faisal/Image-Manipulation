@@ -174,6 +174,43 @@ class HorizontalReflect extends ImageEffect {
     }
 }
 
+class Grow extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        int[][] grownPixels = new int[height * 2][width * 2];
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                grownPixels[y * 2][x * 2] = pixels[y][x];
+                grownPixels[y * 2 + 1][x * 2] = pixels[y][x];
+                grownPixels[y * 2][x * 2 + 1] = pixels[y][x];
+                grownPixels[y * 2 + 1][x * 2 + 1] = pixels[y][x];
+            }
+        }
+        return grownPixels;
+    }
+}
+
+class Shrink extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int shrunkWidth = pixels[0].length / 2;
+        int shrunkHeight = pixels.length / 2;
+
+        int[][] shrunkPixels = new int[shrunkHeight][shrunkWidth];
+
+        for (int x = 0; x < shrunkWidth; x++) {
+            for (int y = 0; y < shrunkHeight; y++) {
+                
+            }
+        }
+       return shrunkPixels;
+    }
+}
+
 class Dummy extends ImageEffect {
 
     public Dummy() {
