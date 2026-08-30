@@ -34,6 +34,96 @@ class Invert extends ImageEffect {
     }
 }
 
+class NoRed extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(0, getGreen(pixels[y][x]), getBlue(pixels[y][x]));
+            }
+        }
+        return pixels;
+    }
+}
+
+class noGreen extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(getRed(pixels[y][x]), 0, getBlue(pixels[y][x]));
+            }
+        }
+        return pixels;
+    }
+}
+
+class noBlue extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(getRed(pixels[y][x]), getGreen(pixels[y][x]), 0);
+            }
+        }
+        return pixels;
+    }
+}
+
+class RedOnly extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(getRed(pixels[y][x]), 0, 0);
+            }
+        }
+        return pixels;
+    }
+}
+
+class GreenOnly extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(0, getGreen(pixels[y][x]), 0);
+            }
+        }
+        return pixels;
+    }
+}
+
+class BlueOnly extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                pixels[y][x] = makePixel(0, 0, getBlue(pixels[y][x]));
+            }
+        }
+        return pixels;
+    }
+}
+
 class Dummy extends ImageEffect {
 
     public Dummy() {
