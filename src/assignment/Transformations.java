@@ -124,6 +124,22 @@ class BlueOnly extends ImageEffect {
     }
 }
 
+class BlackAndWhite extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int averageColor = (getRed(pixels[y][x]) + getGreen(pixels[y][x]) + getBlue(pixels[y][x])) / 3;
+                pixels[y][x] = makePixel(averageColor, averageColor, averageColor);
+            }
+        }
+        return pixels;
+    }
+}
+
 class Dummy extends ImageEffect {
 
     public Dummy() {
