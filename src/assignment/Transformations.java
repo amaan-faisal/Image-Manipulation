@@ -140,6 +140,40 @@ class BlackAndWhite extends ImageEffect {
     }
 }
 
+class VerticalReflect extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width / 2; x++) {
+            for (int y = 0; y < height; y++) {
+                int tempPixel = pixels[y][x];
+                pixels[y][x] = pixels[y][width - 1 - x];
+                pixels[y][width - 1 - x] = tempPixel;
+            }
+        }
+        return pixels;
+    }
+}
+
+class HorizontalReflect extends ImageEffect {
+    public int[][] apply(int[][] pixels, 
+                         ArrayList<ImageEffectParam> params) {
+        int width = pixels[0].length;
+        int height = pixels.length;
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height / 2; y++) {
+                int tempPixel = pixels[y][x];
+                pixels[y][x] = pixels[height - 1 - y][x];
+                pixels[height - 1 - y][x] = tempPixel;
+            }
+        }
+        return pixels;
+    }
+}
+
 class Dummy extends ImageEffect {
 
     public Dummy() {
