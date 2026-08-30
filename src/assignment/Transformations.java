@@ -204,7 +204,28 @@ class Shrink extends ImageEffect {
 
         for (int x = 0; x < shrunkWidth; x++) {
             for (int y = 0; y < shrunkHeight; y++) {
-                
+                int redAverage = (
+                    getRed(pixels[y * 2][x * 2]) +
+                    getRed(pixels[y * 2 + 1][x * 2]) +
+                    getRed(pixels[y * 2][x * 2 + 1]) +
+                    getRed(pixels[y * 2 + 1][x * 2 + 1])
+                ) / 4;
+
+                int greenAverage = (
+                    getGreen(pixels[y * 2][x * 2]) +
+                    getGreen(pixels[y * 2 + 1][x * 2]) +
+                    getGreen(pixels[y * 2][x * 2 + 1]) +
+                    getGreen(pixels[y * 2 + 1][x * 2 + 1])
+                ) / 4;
+
+                int blueAverage = (
+                    getBlue(pixels[y * 2][x * 2]) +
+                    getBlue(pixels[y * 2 + 1][x * 2]) +
+                    getBlue(pixels[y * 2][x * 2 + 1]) +
+                    getBlue(pixels[y * 2 + 1][x * 2 + 1])
+                ) / 4;
+
+                shrunkPixels[y][x] = makePixel(redAverage, greenAverage, blueAverage);
             }
         }
        return shrunkPixels;
