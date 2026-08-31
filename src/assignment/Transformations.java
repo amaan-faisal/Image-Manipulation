@@ -246,9 +246,6 @@ class Threshold extends ImageEffect {
         int height = pixels.length;
 
         int thresholdValue = 127;
-        if (params != null && !params.isEmpty()) {
-            thresholdValue = params.get(0).getValue();
-        }
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
