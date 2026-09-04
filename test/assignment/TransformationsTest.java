@@ -304,4 +304,82 @@ public class TransformationsTest {
             }
         }
     }
+
+    // Simplest test case where input array is a 2x2
+    @Test
+    public void testGrowEven() {
+        ImageEffect growEffect = new Grow();
+        int[][] inputPixels = {
+            {RED, GREEN},
+            {BLUE, WHITE}
+        };
+        int[][] expectedPixels = {
+            {RED, RED, GREEN, GREEN},
+            {RED, RED, GREEN, GREEN},
+            {BLUE, BLUE, WHITE, WHITE},
+            {BLUE, BLUE, WHITE, WHITE}
+        };
+        int[][] actual = growEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+    
+    // Input array has odd dimensions
+    @Test
+    public void testGrowOdd() {
+        ImageEffect growEffect = new Grow();
+        int[][] inputPixels = {
+            {RED, GREEN, BLUE, BLACK, WHITE},
+            {GRAY, WHITE, BLACK, RED, GREEN},
+            {BLUE, BLACK, RED, GREEN, GRAY}
+        };
+        int[][] expectedPixels = {
+            {RED, RED, GREEN, GREEN, BLUE, BLUE, BLACK, BLACK, WHITE, WHITE},
+            {RED, RED, GREEN, GREEN, BLUE, BLUE, BLACK, BLACK, WHITE, WHITE},
+            {GRAY, GRAY, WHITE, WHITE, BLACK, BLACK, RED, RED, GREEN, GREEN},
+            {GRAY, GRAY, WHITE, WHITE, BLACK, BLACK, RED, RED, GREEN, GREEN},
+            {BLUE, BLUE, BLACK, BLACK, RED, RED, GREEN, GREEN, GRAY, GRAY},
+            {BLUE, BLUE, BLACK, BLACK, RED, RED, GREEN, GREEN, GRAY, GRAY}
+        };
+        int[][] actual = growEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Input array has jagged rows
+    @Test
+    public void testGrowJaggedRows() {
+        ImageEffect growEffect = new Grow();
+        int[][] inputPixels = {
+            {RED},
+            {GREEN, GRAY, BLUE},
+            {WHITE, BLACK, RED, BLUE, GRAY}
+        };
+        int[][] expectedPixels = {
+            {RED, RED},
+            {RED, RED},
+            {GREEN, GREEN, GRAY, GRAY, BLUE, BLUE},
+            {GREEN, GREEN, GRAY, GRAY, BLUE, BLUE},
+            {WHITE, WHITE, BLACK, BLACK, RED, RED, BLUE, BLUE, GRAY, GRAY},
+            {WHITE, WHITE, BLACK, BLACK, RED, RED, BLUE, BLUE, GRAY, GRAY}
+        };
+        int[][] actual = growEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
 }
