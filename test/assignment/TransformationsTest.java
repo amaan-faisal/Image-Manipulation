@@ -66,7 +66,7 @@ public class TransformationsTest {
     @Test 
     public void testNoBlue() {
         final int BLUE = makePixel(0, 0, 255);
-        ImageEffect noRedFilter = new NoRed(); 
+        ImageEffect noBlueFilter = new NoBlue(); 
         int[][] inputPixels = {
             {BLUE, BLUE, BLACK},
             {BLACK, BLUE, BLACK},
@@ -77,7 +77,7 @@ public class TransformationsTest {
             {BLACK, BLACK, BLACK},
             {BLACK, BLACK, BLACK}
         };
-        int[][] actual = noRedFilter.apply(inputPixels, new ArrayList<>());
+        int[][] actual = noBlueFilter.apply(inputPixels, new ArrayList<>());
         for (int i = 0; i < inputPixels.length; i++) {
             for (int j = 0; j < inputPixels[i].length; j++) {
                 assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
@@ -86,4 +86,29 @@ public class TransformationsTest {
             }
         }
     }
+
+    @Test
+    public void testNoGreen(){
+        final int GREEN = makePixel(0, 255, 0);
+        ImageEffect noGreenFilter = new NoGreen(); 
+        int[][] inputPixels = {
+            {GREEN, BLACK, GREEN},
+            {BLACK, GREEN, BLACK},
+            {GREEN, BLACK, GREEN}
+        };
+        int[][] expectedPixels = {
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK}
+        };
+        int[][] actual = noGreenFilter.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < inputPixels.length; i++) {
+            for (int j = 0; j < inputPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+ 
 }
