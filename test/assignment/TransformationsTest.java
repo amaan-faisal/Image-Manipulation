@@ -68,6 +68,9 @@ public class TransformationsTest {
         final int BLUE = makePixel(0, 0, 255);
         ImageEffect noRedFilter = new NoRed(); 
         int[][] inputPixels = {
+            {BLUE, BLUE, BLACK},
+            {BLACK, BLUE, BLACK},
+            {BLACK, BLACK, BLUE}
         };
         int[][] expectedPixels = {
             {BLACK, BLACK, BLACK},
