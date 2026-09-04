@@ -124,7 +124,7 @@ class BlackAndWhite extends ImageEffect {
         // Loop through each pixel.
         for (int row = 0; row < pixels.length; row++) {
             for (int col = 0; col < pixels[row].length; col++) {
-                // Average red, green, and blue values to get B/W value
+                // Average red, green, and blue values to get B/W value.
                 int averageColor = (
                     getRed(pixels[row][col]) +
                     getGreen(pixels[row][col]) + 

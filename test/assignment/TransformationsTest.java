@@ -206,7 +206,7 @@ public class TransformationsTest {
         }
     }
 
-    //tests reflection with odd length rows
+    // Tests reflection with odd length rows.
     @Test
     public void testVerticalReflectOdd() {
         ImageEffect verticalReflectEffect = new VerticalReflect();
@@ -228,8 +228,8 @@ public class TransformationsTest {
         }
     }
 
-    // tests both jagged arrays and reflection with an even length row 
-    // (see row index 2 in inputPixels)
+    // Tests both jagged arrays and reflection with an even length row.
+    // (See row index 2 in inputPixels.)
     @Test
     public void testVerticalReflectJagged() {
         ImageEffect verticalReflectEffect = new VerticalReflect();
@@ -253,7 +253,7 @@ public class TransformationsTest {
         }
     }
 
-    // tests horizontal reflect with an odd number of rows
+    // Tests horizontal reflect with an odd number of rows.
     @Test
     public void testHorizontalReflectOdd() {
         ImageEffect horizontalReflectEffect = new HorizontalReflect();
@@ -281,7 +281,7 @@ public class TransformationsTest {
         }
     }
 
-    // tests reflection with jagged rows and an even number of rows
+    // Tests reflection with jagged rows and an even number of rows.
     @Test
     public void testHorizontalReflectJagged() {
         ImageEffect horizontalReflectEffect = new HorizontalReflect();
@@ -307,7 +307,7 @@ public class TransformationsTest {
         }
     }
 
-    // Simplest test case where input array is a 2x2
+    // Simplest test case where input array is a 2x2.
     @Test
     public void testGrowEven() {
         ImageEffect growEffect = new Grow();
@@ -331,7 +331,7 @@ public class TransformationsTest {
         }
     }
     
-    // Input array has odd dimensions
+    // Input array has odd dimensions.
     @Test
     public void testGrowOdd() {
         ImageEffect growEffect = new Grow();
@@ -358,7 +358,7 @@ public class TransformationsTest {
         }
     }
 
-    // Input array has jagged rows
+    // Input array has jagged rows.
     @Test
     public void testGrowJaggedRows() {
         ImageEffect growEffect = new Grow();
@@ -385,7 +385,7 @@ public class TransformationsTest {
         }
     }
 
-    // Simple test for even dimension, 2x2 input array
+    // Simple test for even dimension, 2x2 input array.
     @Test
     public void testShrinkEven() {
         ImageEffect shrinkEffect = new Shrink();
@@ -409,8 +409,8 @@ public class TransformationsTest {
         }
     }
 
-    // Tests odd dimension input array
-    // Discards last row and column
+    // Tests odd dimension input array.
+    // Discards last row and column.
     @Test
     public void testShrinkOdd() {
         ImageEffect shrinkEffect = new Shrink();
@@ -435,8 +435,8 @@ public class TransformationsTest {
         }
     }
 
-    // Tests jagged arrays
-    // Uses the smaller row length
+    // Tests jagged arrays.
+    // Uses the smaller row length.
     @Test
     public void testShrinkJaggedRows() {
         ImageEffect shrinkEffect = new Shrink();
@@ -460,7 +460,7 @@ public class TransformationsTest {
         }
     }
 
-    // Tests the default threshold of 127
+    // Tests the default threshold of 127.
     @Test
     public void testThresholdDefault() {
         ImageEffect thresholdEffect = new Threshold();
@@ -482,7 +482,7 @@ public class TransformationsTest {
         }
     }
 
-    // Tests my custom threshold (199)
+    // Tests my custom threshold (199).
     @Test
     public void testThresholdCustom() {
         ImageEffect thresholdEffect = new Threshold();
