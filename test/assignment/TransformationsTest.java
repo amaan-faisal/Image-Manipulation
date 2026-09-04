@@ -459,4 +459,68 @@ public class TransformationsTest {
             }
         }
     }
+
+    // Tests the default threshold of 127
+    @Test
+    public void testThresholdDefault() {
+        ImageEffect thresholdEffect = new Threshold();
+        int[][] inputPixels = {
+            {makePixel(126, 127, 128), WHITE},
+            {BLACK, makePixel(127, 127, 127)}
+        };
+        int[][] expectedPixels = {
+            {makePixel(0, 255, 255), WHITE},
+            {BLACK, WHITE}
+        };
+        int[][] actual = thresholdEffect.apply(inputPixels, null);
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Tests my custom threshold (199)
+    @Test
+    public void testThresholdCustom() {
+        ImageEffect thresholdEffect = new Threshold();
+        ArrayList<ImageEffectParam> params = new ArrayList<>();
+        params.add(new ImageEffectParam("Threshold", "", 127, 0, 255));
+        params.get(0).setValue(199);
+        int[][] inputPixels = {
+            {makePixel(199, 200, 201), makePixel(0, 255, 200)}
+        };
+        int[][] expectedPixels = {
+            {WHITE, makePixel(0, 255, 255)}
+        };
+        int[][] actual = thresholdEffect.apply(inputPixels, params);
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Tests threshold values not in range [0,255].
+    @Test
+    public void testThresholdInvalid() {
+        ImageEffect thresholdEffect = new Threshold();
+        ArrayList<ImageEffectParam> params = new ArrayList<>();
+        params.add(new ImageEffectParam("Threshold", "", 127, 0, 255));
+        params.get(0).setValue(-1);
+        int[][] inputPixels = {
+            {makePixel(0, 127, 255)}
+        };
+        int[][] actualBelowMinimum = thresholdEffect.apply(inputPixels, params);
+        assertEquals(makePixel(0, 255, 255), actualBelowMinimum[0][0]);
+
+        inputPixels[0][0] = makePixel(0, 127, 255);
+        params.get(0).setValue(256);
+        int[][] actualAboveMaximum = thresholdEffect.apply(inputPixels, params);
+        assertEquals(makePixel(0, 255, 255), actualAboveMaximum[0][0]);
+    }
 }

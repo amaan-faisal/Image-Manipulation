@@ -257,10 +257,14 @@ class Threshold extends ImageEffect {
         // Otherwise, preserve the default value of 127.
         if (params != null && !params.isEmpty()) {
             thresholdValue = params.get(0).getValue();
+            if (thresholdValue < 0 || thresholdValue > 255) {
+                thresholdValue = 127;
+            }
         }
         // Loop through each pixel. 
         // Check if each color's value is less than the threshold.
         // If so, set it to 0. Else, set it to 255.
+        // This means if value equals the threshold, set to 255.
         for (int row = 0; row < pixels.length; row++) {
             for (int col = 0; col < pixels[row].length; col++) {
                 int red = getRed(pixels[row][col]);
