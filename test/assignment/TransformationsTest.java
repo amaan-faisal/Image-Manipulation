@@ -511,16 +511,19 @@ public class TransformationsTest {
         ImageEffect thresholdEffect = new Threshold();
         ArrayList<ImageEffectParam> params = new ArrayList<>();
         params.add(new ImageEffectParam("Threshold", "", 127, 0, 255));
+        
         params.get(0).setValue(-1);
+        // Threshold too low, defaults to 127.
         int[][] inputPixels = {
             {makePixel(0, 127, 255)}
         };
-        int[][] actualBelowMinimum = thresholdEffect.apply(inputPixels, params);
-        assertEquals(makePixel(0, 255, 255), actualBelowMinimum[0][0]);
+        int[][] actualTooLow = thresholdEffect.apply(inputPixels, params);
+        assertEquals(makePixel(0, 255, 255), actualTooLow[0][0]);
 
         inputPixels[0][0] = makePixel(0, 127, 255);
         params.get(0).setValue(256);
-        int[][] actualAboveMaximum = thresholdEffect.apply(inputPixels, params);
-        assertEquals(makePixel(0, 255, 255), actualAboveMaximum[0][0]);
+        // Threshold too high, defaults to 127.
+        int[][] actualTooHigh = thresholdEffect.apply(inputPixels, params);
+        assertEquals(makePixel(0, 255, 255), actualTooHigh[0][0]);
     }
 }
