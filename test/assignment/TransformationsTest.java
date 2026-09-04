@@ -209,11 +209,11 @@ public class TransformationsTest {
     public void testVerticalReflectOdd() {
         ImageEffect verticalReflectEffect = new VerticalReflect();
         int[][] inputPixels = {
-            {RED, GREEN, BLUE},
+            {GRAY, GREEN, BLUE},
             {BLACK, WHITE, RED}
         };
         int[][] expectedPixels = {
-            {BLUE, GREEN, RED},
+            {BLUE, GREEN, GRAY},
             {RED, WHITE, BLACK}
         };
         int[][] actual = verticalReflectEffect.apply(inputPixels, new ArrayList<>());
@@ -233,15 +233,69 @@ public class TransformationsTest {
         ImageEffect verticalReflectEffect = new VerticalReflect();
         int[][] inputPixels = {
             {RED, GREEN},
-            {BLACK, WHITE, BLUE},
+            {GRAY, WHITE, BLUE},
             {GREEN, RED, BLUE, WHITE}
         };
         int[][] expectedPixels = {
             {GREEN, RED},
-            {BLUE, WHITE, BLACK},
+            {BLUE, WHITE, GRAY},
             {WHITE, BLUE, RED, GREEN}
         };
         int[][] actual = verticalReflectEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < inputPixels.length; i++) {
+            for (int j = 0; j < inputPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // tests horizontal reflect with an odd number of rows
+    @Test
+    public void testHorizontalReflectOdd() {
+        ImageEffect horizontalReflectEffect = new HorizontalReflect();
+        int[][] inputPixels = {
+            {GRAY, GREEN},
+            {BLACK, WHITE},
+            {BLUE, RED},
+            {GREEN, BLACK},
+            {WHITE, BLUE}
+        };
+        int[][] expectedPixels = {
+            {WHITE, BLUE},
+            {GREEN, BLACK},
+            {BLUE, RED},
+            {BLACK, WHITE},
+            {GRAY, GREEN}
+        };
+        int[][] actual = horizontalReflectEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < inputPixels.length; i++) {
+            for (int j = 0; j < inputPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // tests reflection with jagged rows and an even number of rows
+    @Test
+    public void testHorizontalReflectJagged() {
+        ImageEffect horizontalReflectEffect = new HorizontalReflect();
+        int[][] inputPixels = {
+            {RED, GREEN},
+            {BLACK, WHITE, BLUE},
+            {GRAY},
+            {BLUE, RED, WHITE, BLACK}
+        };
+        int[][] expectedPixels = {
+            {BLUE, RED, WHITE, BLACK},
+            {GRAY},
+            {BLACK, WHITE, BLUE},
+            {RED, GREEN}
+        };
+        int[][] actual = horizontalReflectEffect.apply(inputPixels, new ArrayList<>());
         for (int i = 0; i < inputPixels.length; i++) {
             for (int j = 0; j < inputPixels[i].length; j++) {
                 assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
