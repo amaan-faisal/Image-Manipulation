@@ -9,11 +9,10 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 public class TransformationsTest {
-
+    public final static int WHITE = makePixel(255, 255, 255);
+    public final static int BLACK = makePixel(0, 0, 0);
     @Test
     public void testInvert() {
-        final int WHITE = makePixel(255, 255, 255);
-        final int BLACK = makePixel(0, 0, 0);
 
         int[][] pixels = {
                 { WHITE, BLACK, WHITE },
@@ -38,7 +37,50 @@ public class TransformationsTest {
                 assertEquals(getBlue(expected[i][j]), getBlue(actual[i][j]));
             }
         }
-
     }
 
+    @Test
+    public void testNoRed() {
+        final int RED = makePixel(255, 0, 0);
+        ImageEffect noRedFilter = new NoRed(); 
+        int[][] inputPixels = {
+            {BLACK, RED, RED},
+            {RED, BLACK, RED},
+            {BLACK, BLACK, BLACK}
+        };
+        int[][] expectedPixels = {
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK}
+        };
+        int[][] actual = noRedFilter.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < inputPixels.length; i++) {
+            for (int j = 0; j < inputPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    @Test 
+    public void testNoBlue() {
+        final int BLUE = makePixel(0, 0, 255);
+        ImageEffect noRedFilter = new NoRed(); 
+        int[][] inputPixels = {
+        };
+        int[][] expectedPixels = {
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK},
+            {BLACK, BLACK, BLACK}
+        };
+        int[][] actual = noRedFilter.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < inputPixels.length; i++) {
+            for (int j = 0; j < inputPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
 }
