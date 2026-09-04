@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 public class TransformationsTest {
+    // Preset of colors for convenience.
     public final static int WHITE = makePixel(255, 255, 255);
     public final static int BLACK = makePixel(0, 0, 0);
     public final static int RED = makePixel(255, 0, 0);
