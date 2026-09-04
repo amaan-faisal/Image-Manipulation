@@ -15,6 +15,8 @@ public class TransformationsTest {
     public final static int GREEN = makePixel(0, 255, 0);
     public final static int BLUE = makePixel(0, 0, 255);
     public final static int GRAY = makePixel(85, 85, 85);
+    public final static int GRAY_LIGHT = makePixel(127, 127, 127);
+    public final static int GRAY_DARK = makePixel(42, 42, 42);
 
     @Test
     public void testInvert() {
@@ -374,6 +376,81 @@ public class TransformationsTest {
             {WHITE, WHITE, BLACK, BLACK, RED, RED, BLUE, BLUE, GRAY, GRAY}
         };
         int[][] actual = growEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Simple test for even dimension, 2x2 input array
+    @Test
+    public void testShrinkEven() {
+        ImageEffect shrinkEffect = new Shrink();
+        int[][] inputPixels = {
+            {RED, GREEN, BLUE, WHITE},
+            {BLUE, WHITE, RED, GREEN},
+            {BLACK, GRAY, WHITE, RED},
+            {GRAY, BLACK, GREEN, BLUE}
+        };
+        int[][] expectedPixels = {
+            {GRAY_LIGHT, GRAY_LIGHT},
+            {GRAY_DARK, GRAY_LIGHT}
+        };
+        int[][] actual = shrinkEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Tests odd dimension input array
+    // Discards last row and column
+    @Test
+    public void testShrinkOdd() {
+        ImageEffect shrinkEffect = new Shrink();
+        int[][] inputPixels = {
+            {RED, RED, GREEN, GREEN, BLUE},
+            {RED, RED, GREEN, GREEN, BLACK},
+            {BLUE, BLUE, WHITE, WHITE, RED},
+            {BLUE, BLUE, WHITE, WHITE, GREEN},
+            {GRAY, GRAY, GRAY, GRAY, WHITE}
+        };
+        int[][] expectedPixels = {
+            {RED, GREEN},
+            {BLUE, WHITE}
+        };
+        int[][] actual = shrinkEffect.apply(inputPixels, new ArrayList<>());
+        for (int i = 0; i < expectedPixels.length; i++) {
+            for (int j = 0; j < expectedPixels[i].length; j++) {
+                assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
+                assertEquals(getGreen(expectedPixels[i][j]), getGreen(actual[i][j]));
+                assertEquals(getBlue(expectedPixels[i][j]), getBlue(actual[i][j]));
+            }
+        }
+    }
+
+    // Tests jagged arrays
+    // Uses the smaller row length
+    @Test
+    public void testShrinkJaggedRows() {
+        ImageEffect shrinkEffect = new Shrink();
+        int[][] inputPixels = {
+            {RED, GREEN, BLUE, WHITE, GRAY},
+            {BLUE, WHITE, RED},
+            {BLACK, GRAY, WHITE, RED},
+            {GRAY, BLACK}
+        };
+        int[][] expectedPixels = {
+            {GRAY_LIGHT},
+            {GRAY_DARK}
+        };
+        int[][] actual = shrinkEffect.apply(inputPixels, new ArrayList<>());
         for (int i = 0; i < expectedPixels.length; i++) {
             for (int j = 0; j < expectedPixels[i].length; j++) {
                 assertEquals(getRed(expectedPixels[i][j]), getRed(actual[i][j]));
